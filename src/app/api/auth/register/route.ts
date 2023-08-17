@@ -4,16 +4,27 @@ import User, { IUser, IUserSchema } from "@/models/User";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+interface BodyProps extends IUser {
+  confirmPassword: string;
+}
+
 export async function POST(request: NextRequest) {
   try {
     await connectMongoDB();
 
-    const body: IUser = await request.json();
-    const { email, password } = body;
+    const body: BodyProps = await request.json();
+    const { email, password, confirmPassword } = body;
 
-    if (!email || !password) {
+    if (!email || !password || !confirmPassword) {
       return NextResponse.json(
         { message: "Te falto enviar algún campo" },
+        { status: 400 }
+      );
+    }
+
+    if(password !== confirmPassword) {
+      return NextResponse.json(
+        { message: "Las contraseñas no coinciden" },
         { status: 400 }
       );
     }
