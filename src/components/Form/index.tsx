@@ -2,6 +2,7 @@
 
 import React, { useState, createContext } from 'react'
 import { Input, SubmitButton } from './components'
+import styles from './styles.module.scss'
 
 type FormValues = Record<string, string>
 
@@ -14,11 +15,12 @@ export const FormContext = createContext<FormContextType | undefined>(undefined)
 
 interface FormProps {
   title: string
+  description?: string
   onSubmit: (values: FormValues) => void
   children: React.ReactNode
 }
 
-export function Form ({ title, onSubmit, children }: FormProps) {
+export function Form ({ title, description, onSubmit, children }: FormProps) {
   const [formValues, setFormValues] = useState<FormValues>({})
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -28,11 +30,11 @@ export function Form ({ title, onSubmit, children }: FormProps) {
 
   return (
     <FormContext.Provider value={{ formValues, setFormValues }}>
-      <form
-        className='py-4 bg-slate-400 flex flex-col gap-[1rem] max-w-md items-center'
-        onSubmit={handleSubmit}
-      >
-        <h2>{title}</h2>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <div className={styles.descriptionContainer}>
+          <h2>{title}</h2>
+          {description && <p>{description}</p>}
+        </div>
         {children}
       </form>
     </FormContext.Provider>

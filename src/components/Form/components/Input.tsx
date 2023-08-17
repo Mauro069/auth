@@ -2,14 +2,16 @@
 
 import { useContext } from 'react'
 import { FormContext } from '..'
+import styles from './styles.module.scss'
 
 interface InputProps {
   type?: 'text' | 'password'
   name: string
   label: string
+  placeholder?: string
 }
 
-export function Input ({ name, label, type = 'text' }: InputProps) {
+export function Input ({ name, label, type = 'text', placeholder }: InputProps) {
   const { formValues, setFormValues } = useContext(FormContext)!
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,8 +23,8 @@ export function Input ({ name, label, type = 'text' }: InputProps) {
   }
 
   return (
-    <div className='flex flex-col'>
-      <label className='font-bold' htmlFor={name}>
+    <div className={styles.inputContainer}>
+      <label className={styles.label} htmlFor={name}>
         {label}
       </label>
       <input
@@ -31,6 +33,7 @@ export function Input ({ name, label, type = 'text' }: InputProps) {
         name={name}
         value={formValues[name] || ''}
         onChange={handleChange}
+        placeholder={placeholder}
       />
     </div>
   )
