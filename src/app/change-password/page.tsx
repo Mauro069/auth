@@ -1,7 +1,5 @@
+import { ChangePasswordForm } from '@/components/Forms/ChangePasswordForm'
+
 export default function ChangePasswordPage () {
-  return (
-    <main>
-      <h1>ChangePasswordPage</h1>
-    </main>
-  )
+  return <ChangePasswordForm />
 }
