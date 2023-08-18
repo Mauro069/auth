@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
     });
 
     const response = NextResponse.json(
-      { userLogged: rest, message: "Autorizado!" },
+      { userLogged: rest, message: "Que bueno verte devuelta!" },
       { status: 200 }
     );
     response.cookies.set("auth_cookie", token, {
