@@ -10,7 +10,7 @@ export const LoginForm = () => {
 
   const login = async (formData: any) => {
     startLoading()
-    await authFetch({ endpoint: 'login', formData })
+    await authFetch({ endpoint: 'login', redirectRoute: '/home', formData })
     finishLoading()
   }
 
@@ -34,6 +34,11 @@ export const LoginForm = () => {
         />
       </div>
       <Form.SubmitButton buttonText='Iniciar Sesión' isLoading={isLoading} />
+      <Form.Footer
+        description='Ya tienes cuenta?'
+        textLink='Inicia Sesión'
+        link='/'
+      />
     </Form>
   )
 }
