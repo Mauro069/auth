@@ -19,7 +19,7 @@ export default function RootLayout ({ children }: RoutLayoutProps) {
     <html lang='en'>
       <body className={inter.className}>
         <NotificationProvider>
-          <main className='h-screen flex flex-col items-center justify-center'>
+          <main className='min-h-screen flex flex-col items-center justify-center'>
             {children}
           </main>
         </NotificationProvider>
