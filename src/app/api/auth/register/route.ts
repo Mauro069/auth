@@ -3,6 +3,7 @@ import { connectMongoDB } from "@/lib/mongodb";
 import User, { IUser, IUserSchema } from "@/models/User";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { isValidEmail } from "@/utils/isValidEmail";
 
 interface BodyProps extends IUser {
   confirmPassword: string;
@@ -20,6 +21,10 @@ export async function POST(request: NextRequest) {
         { message: "Te falto enviar algún campo" },
         { status: 400 }
       );
+    }
+
+    if (!isValidEmail(email)) {
+      return NextResponse.json({ message: "Email no valido" }, { status: 400 });
     }
 
     if (password !== confirmPassword) {
