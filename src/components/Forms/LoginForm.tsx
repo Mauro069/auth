@@ -2,13 +2,16 @@
 
 import { useAuthFetch } from '@/hooks/useAuthFetch'
 import { Form } from '@/components/Form'
+import { useLoading } from '@/hooks/useLoading'
 
 export const LoginForm = () => {
+  const { isLoading, startLoading, finishLoading } = useLoading()
   const authFetch = useAuthFetch()
 
   const login = async (formData: any) => {
-    // Agregar redirect a la Home cuando este la page
+    startLoading()
     await authFetch({ endpoint: 'login', formData })
+    finishLoading()
   }
 
   return (
@@ -30,7 +33,7 @@ export const LoginForm = () => {
           type='password'
         />
       </div>
-      <Form.SubmitButton buttonText='Iniciar Sesión' />
+      <Form.SubmitButton buttonText='Iniciar Sesión' isLoading={isLoading} />
     </Form>
   )
 }
