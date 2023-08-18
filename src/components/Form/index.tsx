@@ -2,6 +2,7 @@
 
 import React, { useState, createContext } from 'react'
 import { Input, SubmitButton } from './components'
+import { Footer } from './components/Footer'
 import styles from './styles.module.scss'
 
 type FormValues = Record<string, string>
@@ -43,3 +44,4 @@ export function Form ({ title, description, onSubmit, children }: FormProps) {
 
 Form.Input = Input
 Form.SubmitButton = SubmitButton
+Form.Footer = Footer
