@@ -4,6 +4,7 @@ import User, { IUser, IUserSchema } from "@/models/User";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { isValidEmail } from "@/utils/isValidEmail";
+import { messages } from "@/utils/messages";
 
 interface BodyProps extends IUser {
   confirmPassword: string;
@@ -18,18 +19,21 @@ export async function POST(request: NextRequest) {
 
     if (!email || !password || !confirmPassword) {
       return NextResponse.json(
-        { message: "Te falto enviar algún campo" },
+        { message: messages.error.needProps },
         { status: 400 }
       );
     }
 
     if (!isValidEmail(email)) {
-      return NextResponse.json({ message: "Email no valido" }, { status: 400 });
+      return NextResponse.json(
+        { message: messages.error.emailNotValid },
+        { status: 400 }
+      );
     }
 
     if (password !== confirmPassword) {
       return NextResponse.json(
-        { message: "Las contraseñas no coinciden" },
+        { message: messages.error.passwordsNotMatch },
         { status: 400 }
       );
     }
@@ -38,7 +42,7 @@ export async function POST(request: NextRequest) {
 
     if (userFind) {
       return NextResponse.json(
-        { message: "Ya existe un usuario con ese correo" },
+        { message: messages.error.emailExist },
         { status: 200 }
       );
     }
@@ -60,7 +64,7 @@ export async function POST(request: NextRequest) {
     });
 
     const response = NextResponse.json(
-      { newUser: rest, message: "Usuario creado correctamente!" },
+      { newUser: rest, message: messages.success.userCreated },
       { status: 200 }
     );
     response.cookies.set("auth_cookie", token, {
@@ -73,7 +77,7 @@ export async function POST(request: NextRequest) {
     return response;
   } catch (error) {
     return NextResponse.json(
-      { message: "Ocurrió un error", error },
+      { message: messages.error.default, error },
       { status: 500 }
     );
   }

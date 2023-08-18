@@ -4,6 +4,7 @@ import { connectMongoDB } from "@/lib/mongodb";
 import { Resend } from "resend";
 import User from "@/models/User";
 import jwt from "jsonwebtoken";
+import { messages } from "@/utils/messages";
 
 const resend = new Resend("re_a62XphiX_CQsQa1g4rhvqijjrU26n9zgr");
 
@@ -18,7 +19,7 @@ export async function POST(request: NextRequest) {
 
     if (!userFind) {
       return NextResponse.json(
-        { message: "Usuario no existente" },
+        { message: messages.error.userNotFound },
         { status: 400 }
       );
     }
@@ -43,7 +44,7 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json(
-      { message: "Correo enviado correctamente!" },
+      { message: messages.success.emailSent },
       { status: 200 }
     );
   } catch (error) {

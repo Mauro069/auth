@@ -3,6 +3,7 @@ import { connectMongoDB } from "@/lib/mongodb";
 import User, { IUser } from "@/models/User";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import { messages } from "@/utils/messages";
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,7 +14,7 @@ export async function POST(request: NextRequest) {
 
     if (!email || !password) {
       return NextResponse.json(
-        { message: "Te falto enviar algún campo" },
+        { message: messages.error.needProps },
         { status: 400 }
       );
     }
@@ -22,7 +23,7 @@ export async function POST(request: NextRequest) {
 
     if (!userFind) {
       return NextResponse.json(
-        { message: "Usuario no encontrado" },
+        { message: messages.error.userNotFound },
         { status: 400 }
       );
     }
@@ -34,7 +35,7 @@ export async function POST(request: NextRequest) {
 
     if (!isCorrect) {
       return NextResponse.json(
-        { message: "La contraseña es incorrecta" },
+        { message: messages.error.incorrectPassword },
         { status: 400 }
       );
     }
@@ -46,7 +47,7 @@ export async function POST(request: NextRequest) {
     });
 
     const response = NextResponse.json(
-      { userLogged: rest, message: "Que bueno verte devuelta!" },
+      { userLogged: rest, message: messages.success.userLogged },
       { status: 200 }
     );
     response.cookies.set("auth_cookie", token, {
@@ -59,7 +60,7 @@ export async function POST(request: NextRequest) {
     return response;
   } catch (error) {
     return NextResponse.json(
-      { message: "Ocurrió un error", error },
+      { message: messages.error.default, error },
       { status: 500 }
     );
   }

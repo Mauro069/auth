@@ -1,10 +1,10 @@
-import { EmailTemplate } from "@/components/EmailTemplate";
 import { NextRequest, NextResponse } from "next/server";
 import { connectMongoDB } from "@/lib/mongodb";
-import User, { IUserSchema } from "@/models/User";
+import User from "@/models/User";
 import jwt from "jsonwebtoken";
 import { headers } from "next/headers";
 import bcrypt from "bcryptjs";
+import { messages } from "@/utils/messages";
 
 interface BodyProps {
   newPassword: string;
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
 
     if (!newPassword || !confirmPassword) {
       return NextResponse.json(
-        { message: "Te falto enviar algo" },
+        { message: messages.error.needProps },
         { status: 400 }
       );
     }
@@ -37,7 +37,10 @@ export async function POST(request: NextRequest) {
     const token = headersList.get("token");
 
     if (!token) {
-      return NextResponse.json({ message: "No autorizado" }, { status: 400 });
+      return NextResponse.json(
+        { message: messages.error.notAuthorized },
+        { status: 400 }
+      );
     }
 
     try {
@@ -49,14 +52,14 @@ export async function POST(request: NextRequest) {
 
       if (!userFind) {
         return NextResponse.json(
-          { message: "Usuario no existente" },
+          { message: messages.error.userNotFound },
           { status: 400 }
         );
       }
 
       if (newPassword !== confirmPassword) {
         return NextResponse.json(
-          { message: "Las contraseñas no coinciden" },
+          { message: messages.error.passwordsNotMatch },
           { status: 400 }
         );
       }
@@ -68,12 +71,12 @@ export async function POST(request: NextRequest) {
       await userFind.save();
 
       return NextResponse.json(
-        { message: "Contraseña cambiada correctamente" },
+        { message: messages.success.passwordChanged },
         { status: 200 }
       );
     } catch (error) {
       return NextResponse.json(
-        { message: "Token no valido", error },
+        { message: messages.error.tokenNotValid, error },
         { status: 400 }
       );
     }
