@@ -1,6 +1,7 @@
-import './globals.css'
-import type { Metadata } from 'next'
+import { NotificationProvider } from '@/context/NotificationContext'
 import { Inter } from 'next/font/google'
+import type { Metadata } from 'next'
+import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,9 +18,11 @@ export default function RootLayout ({ children }: RoutLayoutProps) {
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <main className='h-screen flex flex-col items-center justify-center'>
-          {children}
-        </main>
+        <NotificationProvider>
+          <main className='h-screen flex flex-col items-center justify-center'>
+            {children}
+          </main>
+        </NotificationProvider>
       </body>
     </html>
   )
