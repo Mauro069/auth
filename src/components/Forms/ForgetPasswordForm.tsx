@@ -31,6 +31,7 @@ export const ForgetPasswordForm = () => {
         buttonText='Recuperar contraseña'
         isLoading={isLoading}
       />
+      <Form.Footer description='Volver al' textLink='Inicio' link='/' />
     </Form>
   )
 }

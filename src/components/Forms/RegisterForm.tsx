@@ -40,6 +40,11 @@ export const RegisterForm = () => {
         />
       </div>
       <Form.SubmitButton buttonText='Crear cuenta' isLoading={isLoading} />
+      <Form.Footer
+        description='Aun no tienes cuenta?'
+        textLink='Registrate'
+        link='/register'
+      />
     </Form>
   )
 }
