@@ -2,12 +2,16 @@
 
 import { useAuthFetch } from '@/hooks/useAuthFetch'
 import { Form } from '@/components/Form'
+import { useLoading } from '@/hooks/useLoading'
 
 export const RegisterForm = () => {
+  const { isLoading, startLoading, finishLoading } = useLoading()
   const authFetch = useAuthFetch()
 
   const register = async (formData: any) => {
+    startLoading()
     await authFetch({ endpoint: 'register', formData, redirectRoute: '/' })
+    finishLoading()
   }
 
   return (
@@ -35,7 +39,7 @@ export const RegisterForm = () => {
           type='password'
         />
       </div>
-      <Form.SubmitButton buttonText='Crear cuenta' />
+      <Form.SubmitButton buttonText='Crear cuenta' isLoading={isLoading} />
     </Form>
   )
 }
