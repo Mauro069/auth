@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
     // @ts-ignore
     await resend.emails.send({
       from: "onboarding@resend.dev",
-      to: "maurovera069@gmail.com", // Cambiar por el email del body
+      to: email,
       subject: "Cambiar contraseña",
       react: EmailTemplate({ buttonUrl: forgetUrl }),
     });
