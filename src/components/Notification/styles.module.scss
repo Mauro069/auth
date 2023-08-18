@@ -4,39 +4,27 @@
   right: 0;
   margin-bottom: 1rem;
   z-index: 5;
+
   display: flex;
   align-items: center;
   animation: start 0.5s forwards;
 
-  .textGreen {
-    height: 50px;
-    width: 100%;
-    background-color: rgb(227, 227, 227);
-    color: black;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    padding: 1rem;
-    flex-direction: column;
-    gap: 10px;
-    border-radius: 10px 0 0 10px;
-    border: 1px solid rgb(199, 199, 199);
-    border-bottom: 3px solid #01bb1f;
+  height: 50px;
+  width: fit-content;
+  padding: .6rem 1rem;
+  transition: .3s;
 
-    p {
-      font-weight: 500;
-      font-size: 16px;
-    }
+  border: .5px solid #878787;
+  border-radius: 10px 0 0 10px;
+  border-right: none;
+  outline: .5px solid transparent;
 
-    span {
-      font-size: 14px;
-      font-weight: 400;
-    }
+  &.success {
+    outline: 1.5px solid greenyellow;
   }
 
-  .textRed {
-    @extend .textGreen;
-    border-bottom: 3px solid #ff0000;
+  &.error {
+    outline: 1.5px solid orangered;
   }
 }
 
@@ -44,6 +32,7 @@
   from {
     right: -100%;
   }
+
   to {
     right: 0%;
   }
