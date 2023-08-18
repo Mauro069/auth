@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if(password !== confirmPassword) {
+    if (password !== confirmPassword) {
       return NextResponse.json(
         { message: "Las contraseñas no coinciden" },
         { status: 400 }
@@ -54,7 +54,10 @@ export async function POST(request: NextRequest) {
       expiresIn: 86400,
     });
 
-    const response = NextResponse.json({ newUser: rest }, { status: 200 });
+    const response = NextResponse.json(
+      { newUser: rest, message: "Usuario creado correctamente!" },
+      { status: 200 }
+    );
     response.cookies.set("auth_cookie", token, {
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
