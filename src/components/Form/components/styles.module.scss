@@ -32,6 +32,9 @@
     padding: .4rem 0;
     border: 1px solid transparent;
     transition-duration: .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
         background-color: white;
