@@ -4,13 +4,15 @@ import { useAuthFetch } from '@/hooks/useAuthFetch'
 import { useSearchParams } from 'next/navigation'
 import { Form } from '@/components/Form'
 import { AxiosRequestConfig } from 'axios'
+import { useLoading } from '@/hooks/useLoading'
 
 export const ChangePasswordForm = () => {
+  const { isLoading, startLoading, finishLoading } = useLoading()
   const searchParams = useSearchParams()
-
   const authFetch = useAuthFetch()
 
   const changePassword = async (formData: any) => {
+    startLoading()
     const token = searchParams.get('token')
 
     const options: AxiosRequestConfig<any> = {
@@ -19,12 +21,14 @@ export const ChangePasswordForm = () => {
       }
     }
 
-    // Agregar redirect a la Home cuando este la page
     await authFetch({
       endpoint: 'change-password',
+      redirectRoute: '/',
       formData,
       options
     })
+
+    finishLoading()
   }
 
   return (
@@ -47,7 +51,10 @@ export const ChangePasswordForm = () => {
           type='password'
         />
       </div>
-      <Form.SubmitButton buttonText='Cambiar contraseña' />
+      <Form.SubmitButton
+        buttonText='Cambiar contraseña'
+        isLoading={isLoading}
+      />
     </Form>
   )
 }

@@ -2,13 +2,16 @@
 
 import { useAuthFetch } from '@/hooks/useAuthFetch'
 import { Form } from '@/components/Form'
+import { useLoading } from '@/hooks/useLoading'
 
 export const ForgetPasswordForm = () => {
+  const { isLoading, startLoading, finishLoading } = useLoading()
   const authFetch = useAuthFetch()
 
   const forgetPassword = async (formData: any) => {
-    // Agregar redirect a la Home cuando este la page
+    startLoading()
     await authFetch({ endpoint: 'forget-password', formData })
+    finishLoading()
   }
 
   return (
@@ -24,7 +27,10 @@ export const ForgetPasswordForm = () => {
           name='email'
         />
       </div>
-      <Form.SubmitButton buttonText='Recuperar contraseña' />
+      <Form.SubmitButton
+        buttonText='Recuperar contraseña'
+        isLoading={isLoading}
+      />
     </Form>
   )
 }
