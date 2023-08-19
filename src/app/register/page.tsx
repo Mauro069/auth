@@ -10,7 +10,7 @@ export default function RegisterPage () {
 
   const register = async (formData: any) => {
     startLoading()
-    await authFetch({ endpoint: 'register', formData, redirectRoute: '/' })
+    await authFetch({ endpoint: 'register', formData, redirectRoute: '/home' })
     finishLoading()
   }
 
@@ -41,9 +41,9 @@ export default function RegisterPage () {
       </div>
       <Form.SubmitButton buttonText='Crear cuenta' isLoading={isLoading} />
       <Form.Footer
-        description='Aun no tienes cuenta?'
-        textLink='Registrate'
-        link='/register'
+        description='Ya tienes cuenta?'
+        textLink='Inicia Sesión'
+        link='/'
       />
     </Form>
   )
