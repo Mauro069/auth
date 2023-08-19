@@ -19,7 +19,6 @@
     "encoding": "^0.1.13",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.15",
-    "jose": "^4.14.4",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.3",
     "next": "13.4.15",
