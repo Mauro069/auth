@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Auth Nextjs13',
-  description: 'Autenticacion con Nextjs 13'
+  description: 'Sistema de Autenticacion con Nextjs 13 (app router)'
 }
 
 interface RoutLayoutProps {
